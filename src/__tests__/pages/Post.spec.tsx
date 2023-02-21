@@ -1,35 +1,35 @@
-import { render, screen } from "@testing-library/react";
-import { mocked } from 'ts-jest/utils';
-import { getSession } from "next-auth/client";
+import { render, screen } from '@testing-library/react'
+import { mocked } from 'ts-jest/utils'
+import { getSession } from 'next-auth/client'
 
-import { getPrismicClient } from '../../services/prismic';
-import Post, {getServerSideProps} from '../../pages/posts/[slug]';
+import { getPrismicClient } from '../../services/prismic'
+import Post, { getServerSideProps } from '../../pages/posts/[slug]'
 
-jest.mock('next-auth/client');
-jest.mock('../../services/prismic');
+jest.mock('next-auth/client')
+jest.mock('../../services/prismic')
 
 const post = {
-    slug: 'my-new-post',
-    title: 'My New Post',
-    content: '<p>Post excerpt</p>',
-    updatedAt: '10 de abril'
-  };
+  slug: 'my-new-post',
+  title: 'My New Post',
+  content: '<p>Post excerpt</p>',
+  updatedAt: '10 de abril',
+}
 
 describe('Post page', () => {
   it('renders correctly', () => {
     render(<Post post={post} />)
 
-    expect(screen.getByText('My New Post')).toBeInTheDocument();
-    expect(screen.getByText('Post excerpt')).toBeInTheDocument();
-  });
+    expect(screen.getByText('My New Post')).toBeInTheDocument()
+    expect(screen.getByText('Post excerpt')).toBeInTheDocument()
+  })
 
   it('redirects user if no subscription is found', async () => {
-    const getSessionMocked = mocked(getSession);
+    const getSessionMocked = mocked(getSession)
 
     getSessionMocked.mockResolvedValueOnce(null)
 
     const response = await getServerSideProps({
-      params: { slug: 'my-new-post'}
+      params: { slug: 'my-new-post' },
     } as any)
 
     expect(response).toEqual(
@@ -37,7 +37,7 @@ describe('Post page', () => {
         redirect: expect.objectContaining({
           destination: `/posts/preview/my-new-post`,
         }),
-      })
+      }),
     )
   })
 
@@ -46,24 +46,20 @@ describe('Post page', () => {
     const getPrismicClientMocked = mocked(getPrismicClient)
 
     getSessionMocked.mockResolvedValueOnce({
-      activeSubscription: 'fake-active-subscription'
+      activeSubscription: 'fake-active-subscription',
     } as any)
     getPrismicClientMocked.mockReturnValueOnce({
       getByUID: jest.fn().mockResolvedValueOnce({
         data: {
-          title: [
-            {type: 'heading', text: 'My New Post'}
-          ],
-          content: [
-            {type: 'paragraph', text: 'Post excerpt'}
-          ],
+          title: [{ type: 'heading', text: 'My New Post' }],
+          content: [{ type: 'paragraph', text: 'Post excerpt' }],
         },
         last_publication_date: '04-01-2021',
-      })
+      }),
     } as any)
 
     const response = await getServerSideProps({
-      params: { slug: 'my-new-post'}
+      params: { slug: 'my-new-post' },
     } as any)
 
     expect(response).toEqual(
@@ -73,10 +69,10 @@ describe('Post page', () => {
             slug: 'my-new-post',
             title: 'My New Post',
             content: '<p>Post excerpt</p>',
-            updatedAt: '01 de abril de 2021'
-          }
-        }
-      })
+            updatedAt: '01 de abril de 2021',
+          },
+        },
+      }),
     )
   })
 })

@@ -11,9 +11,7 @@
 <p align="center">
  <a href="#sobre-o-projeto">Sobre o Projeto</a> •
  <a href="#tecnologias">Tecnologias</a> •
- <a href="#configurações-necessárias">Configurações necessárias</a> •
- <a href="#licença">Licença</a> •
- <a href="#autor">Autor</a>
+ <a href="#configurações-necessárias">Configurações necessárias</a>
 </p>
 
 ## Sobre o projeto
@@ -63,9 +61,9 @@ Criar conta e configurar os serviços externos:
 
 ```bash
 # Execute o comando git clone para realizar o clone do repositório
-$ git clone https://github.com/nelsonsantosaraujo/ignews.git
+$ git clone https://github.com/Mateus8741/ignite-IgNews
 # Entre na pasta do repositório clonado
-$ cd ignews
+$ cd ignite-IgNews
 ```
 
 ### **Iniciando o projeto**
@@ -86,18 +84,3 @@ $ stripe listen --forward-to localhost:3000/api/webhooks
 $ yarn dev
 
 ```
-
----
-
-## Licença
-
-Distribuído sob a licença MIT. Veja [LICENSE](LICENSE) para mais informações.
-
----
-
-## Autor
-
-Feito por Nelson Araújo 👋🏽 Entre em contato!
-
-[![Linkedin Badge](https://img.shields.io/badge/-Nelson-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/tgmarinho/)](https://www.linkedin.com/in/nelsonsantosaraujo/)
-[![Gmail Badge](https://img.shields.io/badge/-nelsonsantosaraujo@hotmail.com-red?style=flat-square&link=mailto:nelsonsantosaraujo@hotmail.com)](mailto:nelsonsantosaraujo@hotmail.com)
